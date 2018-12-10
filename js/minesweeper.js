@@ -177,9 +177,7 @@ function startTimer() {
 }
 
 function stopTimer() {
-    timeValue = 0;
     clearInterval(timer);
-    updateTimer();
 }
 
 function onTimerTick() {
@@ -277,6 +275,7 @@ function displayWrongFlags() {
 function updateFlag(elem) {
     if(elem.classList.contains("flag")) {
         elem.classList.remove("flag");
+        elem.classList.add("hidden");
         flagCountValue++;
     } else {
         elem.classList.remove("hidden");
@@ -323,6 +322,8 @@ function resetGame() {
     updateNotification("");
     remainingTiles = columns*rows - mineCount;
     isGameOver = false;
+    timeValue = 0;
+    updateTimer();
 }
 
 function expand( elemX, elemY ) {
