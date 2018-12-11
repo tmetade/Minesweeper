@@ -53,8 +53,8 @@
     width: 26px;
     height: 26px;
     background-image: url("../images/face_up.png");
-    margin-bottom: 5px;
 }
+
 .face_down {
     background-image: url("../images/face_down.png");
 }
@@ -70,7 +70,10 @@
 
 h1 {
     text-align: center;
-    font-weight: bold;
+    font-family:"Arcade Font";
+    color: #D8D7DF;
+    margin: 10px;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 div {
     margin:auto;
@@ -79,27 +82,93 @@ div {
 
 .game_wrapper {
     display: inline-block;
-    background: #EE6F25;
+    background: url(../images/stones.jpg);
     padding: 10px;
-    border:1px solid black;
+    border: 5px solid #262722;
     border-radius: 25px;
 }
 
-.game {
+.game{
     background: #BDBDBD;
-    padding: 5px;
     display: inline-block;
-    border:2px solid black;
-}
-
-.game .minefield:empty{
-
+    border: 2px solid black;
 }
 
 .minefield {
-    border:2px solid black;
+    border: 2px solid black;
+    margin: 5px;
 }
 
 .minefield:empty {
     display:none;
+}
+
+@font-face {
+    font-family: "Arcade Font";
+    src: url(../fonts/emulogic.ttf) format("truetype");
+}
+
+.game_stats {
+    margin: 10px;
+}
+
+.menu-button {
+ font-family:"Arcade Font";
+ font-size: 10px;
+ color:#FFFFFF;
+background-color: #BDBDBD;
+}
+
+.menu-button:hover{
+ color:#000000;
+ background-color:#FFFFFF;
+}
+
+.menu-title{
+  text-align: center;
+  font-family:"Arcade Font";
+  margin: 10px;
+  color: black;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 30%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.menu {
+  width:100%;
 }

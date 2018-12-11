@@ -12,14 +12,47 @@
         <div>
             <div class="game_wrapper">
                 <h1> Minesweeper </h1>
+                <table class ="menu">
+                  <tr>
+                    <th><button id="howToPlayBtn" class="menu-button">How to Play</button></th>
+                    <th><button id="difficultyBtn" class="menu-button">Difficulty</button></th>
+                    <th><button id="leaderboardBtn" class="menu-button">LeaderBoard</button></th>
+                  </tr>
+                </table>
+                
 
-                <div>
-                    <select id="difficulty" onchange="setDifficulty();">
-                       <option value="0">Easy</option>
-                       <option value="1">Medium</option>
-                       <option value="2">Hard</option>
-                    </select>
-                    
+                <div id="howToPlayModal" class="modal">
+                  <!-- Modal content -->
+                  <div class="modal-content">
+                    <span id="closeHowToPlay" class="close">&times;</span>
+                    <h1 class="menu-title"> How to Play</h1>
+                  </div>
+                </div>
+
+                <div id="difficultyModal" class="modal">
+                  <!-- Modal content -->
+                  <div class="modal-content">
+                    <span id="closeDifficulty" class="close">&times;</span>
+                    <h1 class="menu-title">Difficulty</h1>
+                  </div>
+                </div>
+
+                <div id="leaderBoardModal" class="modal">
+                  <!-- Modal content -->
+                  <div class="modal-content">
+                    <span id="closeLeaderBoard" class="close">&times;</span>
+                    <h1 class="menu-title">Leaderboard</h1>
+                  </div>
+
+                </div>
+
+                <select id="difficulty" onchange="setDifficulty();">
+                   <option value="0">Easy</option>
+                   <option value="1">Medium</option>
+                   <option value="2">Hard</option>
+                </select>
+
+                <div class="game_stats">
                     <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
                     <span>Remaining Mines:</span>
                     <span id="flagCount">10</span>
@@ -39,4 +72,54 @@
             </div>
         </div>
     </body>
+    <script>
+        var howToPlayModal = document.getElementById('howToPlayModal');
+        var difficultyModal = document.getElementById('difficultyModal');
+        var leaderBoardModal = document.getElementById('leaderBoardModal');
+
+        var howToPlayBtn = document.getElementById("howToPlayBtn");
+        var difficultyBtn = document.getElementById("difficultyBtn");
+        var leaderboardBtn = document.getElementById("leaderboardBtn");
+
+        // Get the <span> element that closes the modal
+        var spanHowToPlay = document.getElementById("closeHowToPlay");
+        var spanDifficulty = document.getElementById("closeDifficulty");
+        var spanLeaderBoard = document.getElementById("closeLeaderBoard");
+
+        howToPlayBtn.onclick = function() {
+            howToPlayModal.style.display ="block";
+        }
+
+        difficultyBtn.onclick = function() {
+            difficultyModal.style.display="block";
+        }
+
+        leaderboardBtn.onclick = function() {
+            leaderBoardModal.style.display="block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        spanHowToPlay.onclick = function() {
+            howToPlayModal.style.display = "none";
+        }
+
+         spanDifficulty.onclick = function() {
+            difficultyModal.style.display = "none";
+        }
+
+         spanLeaderBoard.onclick = function() {
+            leaderBoardModal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == howToPlayModal) {
+            howToPlayModal.style.display = "none";
+          } else if (event.target == difficultyModal) {
+            difficultyModal.style.display = "none";
+          } else if (event.target == leaderBoardModal) {
+            leaderBoardModal.style.display = "none";
+          }
+        }
+    </script>
 </html>
