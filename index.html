@@ -8,7 +8,7 @@
 
     </head>
 
-    <body>
+    <body onload="startGame();">
         <div>
             <div class="game_wrapper">
                 <h1> Minesweeper </h1>
@@ -16,58 +16,100 @@
                   <tr>
                     <th><button id="howToPlayBtn" class="menu-button">How to Play</button></th>
                     <th><button id="difficultyBtn" class="menu-button">Difficulty</button></th>
-                    <th><button id="leaderboardBtn" class="menu-button">LeaderBoard</button></th>
                   </tr>
                 </table>
-                
 
                 <div id="howToPlayModal" class="modal">
-                  <!-- Modal content -->
                   <div class="modal-content">
                     <span id="closeHowToPlay" class="close">&times;</span>
                     <h1 class="menu-title"> How to Play</h1>
+                    <p>Your goal is to find all the mines!</p>
+                    <p style="text-decoration: underline">Controls</p>
+                    <table style="text-align: left;">
+                        <tr>
+                            <td><p><strong>Left Click:</strong></p></td>
+                            <td><p>will reveal the tile.</p></td>
+                        </tr>
+                        <tr>
+                            <td><p><strong>Right Click:</strong></p></td>
+                            <td><p>will place or remove a flag.</p></td>
+                        </tr>
+                        <tr>
+                            <td><p><strong>Middle Click: </strong></p></td>
+                            <td><p>will reveal the surrounding tiles.</p></td>
+                        </tr>
+                    </table>
+                    <p style="text-decoration: underline">Icons</p>
+                    <table style="text-align: left;">
+                        <tr>
+                            <td><div class="icon tile tile_1"></div></td>
+                            <td><p>Numbered tiles tell you how many mines surrounding that tile.</p></td>
+                        </tr>
+                        <tr>
+                            <td><div class="icon tile flag"></div></td>
+                            <td><p>Flags can be placed on tiles that you think is a mine, but not all mines need to be flagged for you to win</p></td>
+                        </tr>
+                        <tr>
+                            <td><div class="icon tile mine_hit"></div></td>
+                            <td><p>When you incorrectly select a tile that is a mine you automatically lose, revealing all other flags.</p></td>
+                        </tr>
+                        <tr>
+                            <td><div class="icon tile mine_marked"></div></td>
+                            <td><p>When you place a flag on a tile that did not contain a mine. Flags that are correctly marked will stay the same icon.</p></td>
+                        </tr>
+                    </table>
+                    <p> You're ready to play! Now get out there are start sweeping!</p>
                   </div>
                 </div>
 
                 <div id="difficultyModal" class="modal">
-                  <!-- Modal content -->
                   <div class="modal-content">
                     <span id="closeDifficulty" class="close">&times;</span>
                     <h1 class="menu-title">Difficulty</h1>
+                    <table style="text-align: left;">
+                        <tr>
+                            <td><input id="easyRadio" type="radio" name="myRadios" onchange="setDifficulty(this);" value="0" checked/></td>
+                            <td>
+                                <label for="easyRadio"><p><strong> Easy </strong> 9x9 grid with 10 mines.</p></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input id="mediumRadio"type="radio" name="myRadios" onchange="setDifficulty(this);" value="1" /></td>
+                            <td>
+                                <label for="mediumRadio"><p><strong> Medium </strong> 16x16 grid with 40 mines.</p></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input id="hardRadio"type="radio" name="myRadios" onchange="setDifficulty(this);" value="2" /></td>
+                            <td>
+                                <label for="hardRadio"><p><strong> Hard </strong> 30x16 grid with 99 mines.</p></label>
+                            </td>
+                        </tr>
+                    </table>
+                    <button id="startGameBtn" class="menu-button">Start Game</button>
                   </div>
-                </div>
-
-                <div id="leaderBoardModal" class="modal">
-                  <!-- Modal content -->
-                  <div class="modal-content">
-                    <span id="closeLeaderBoard" class="close">&times;</span>
-                    <h1 class="menu-title">Leaderboard</h1>
-                  </div>
-
-                </div>
-
-                <select id="difficulty" onchange="setDifficulty();">
-                   <option value="0">Easy</option>
-                   <option value="1">Medium</option>
-                   <option value="2">Hard</option>
-                </select>
-
-                <div class="game_stats">
-                    <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-                    <span>Remaining Mines:</span>
-                    <span id="flagCount">10</span>
-                    <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-                    <span>Time:</span>
-                    <span id="timer">0</span>
-                    <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-                </div>
-                <div class="game">
-                    <div id="smiley" class="smiley" onmousedown="smileyDown();" onmouseup="smileyUp();" onclick="startGame();"></div>
-                    
-                    <div id="minefield" class="minefield"></div>
                 </div>
                 <div>
-                    <span id="notification"></span>
+                    <span id="notification" class="notification"></span>
+                </div>
+
+                <div class="game">
+                    <table class="game_stats">
+                        <tr>
+                            <td>
+                                <img style="float: left;" id="mine_hundred" src="images/time0.gif"></img>
+                                <img style="float: left;" id="mine_ten" src="images/time0.gif"></img>
+                                <img style="float: left;" id="mine_one" src="images/time0.gif"></img>
+                            </td>
+                            <td> <div id="smiley" class="smiley" onmousedown="smileyDown();" onmouseup="smileyUp();" onclick="startGame();"></div></td>
+                            <td>
+                                <img style="float: right;" id="time_one" src="images/time0.gif"></img>
+                                <img style="float: right;" id="time_ten" src="images/time0.gif"></img>
+                                <img style="float: right;" id="time_hundred" src="images/time0.gif"></img>
+                            </td>
+                        </tr>
+                    </table>
+                    <div id="minefield" class="minefield"></div>
                 </div>
             </div>
         </div>
@@ -75,16 +117,14 @@
     <script>
         var howToPlayModal = document.getElementById('howToPlayModal');
         var difficultyModal = document.getElementById('difficultyModal');
-        var leaderBoardModal = document.getElementById('leaderBoardModal');
 
         var howToPlayBtn = document.getElementById("howToPlayBtn");
         var difficultyBtn = document.getElementById("difficultyBtn");
-        var leaderboardBtn = document.getElementById("leaderboardBtn");
+        var startGameBtn = document.getElementById("startGameBtn");
 
         // Get the <span> element that closes the modal
         var spanHowToPlay = document.getElementById("closeHowToPlay");
         var spanDifficulty = document.getElementById("closeDifficulty");
-        var spanLeaderBoard = document.getElementById("closeLeaderBoard");
 
         howToPlayBtn.onclick = function() {
             howToPlayModal.style.display ="block";
@@ -94,8 +134,9 @@
             difficultyModal.style.display="block";
         }
 
-        leaderboardBtn.onclick = function() {
-            leaderBoardModal.style.display="block";
+        startGameBtn.onclick = function() {
+            difficultyModal.style.display="none";
+            startGame();
         }
 
         // When the user clicks on <span> (x), close the modal
@@ -103,12 +144,8 @@
             howToPlayModal.style.display = "none";
         }
 
-         spanDifficulty.onclick = function() {
+        spanDifficulty.onclick = function() {
             difficultyModal.style.display = "none";
-        }
-
-         spanLeaderBoard.onclick = function() {
-            leaderBoardModal.style.display = "none";
         }
 
         // When the user clicks anywhere outside of the modal, close it
@@ -117,8 +154,6 @@
             howToPlayModal.style.display = "none";
           } else if (event.target == difficultyModal) {
             difficultyModal.style.display = "none";
-          } else if (event.target == leaderBoardModal) {
-            leaderBoardModal.style.display = "none";
           }
         }
     </script>

@@ -1,8 +1,9 @@
+var timer;
 var timeValue = 0;
 var columns = 9;
 var rows = 9;
 var mineCount = 10;
-var flagCountValue = mineCount; //number of flags the user had remaining
+var flagCount = mineCount; //number of flags the user had remaining
 var tiles = []; //array of just tiles, no mines
 var coordinates = null; //2D array containing all the tiles
 var mines = []; //array of mines
@@ -59,7 +60,7 @@ function createTile(x,y) {
 //randomly add mines to the grid
 function generateMines() {
     var count = 0;
-    while ( count++ < flagCountValue ) {
+    while ( count++ < flagCount ) {
         var idx = Math.floor( Math.random() * tiles.length );
         var coordinate = tiles[ idx ];
     
@@ -78,7 +79,7 @@ function startGame() {
     buildGrid();
     generateMines();
     smileyAlive();
-    document.getElementById("flagCount").innerHTML = flagCountValue;
+    displayFlagCount();
 }
 
 function handleTileClick(event) {
@@ -140,9 +141,8 @@ function updateNotification(message) {
 }
 
 //change the game parameters base on the users difficulty input
-function setDifficulty() {
-    var difficultySelector = document.getElementById("difficulty");
-    var difficulty = difficultySelector.selectedIndex;
+function setDifficulty(radioButton) {
+    var difficulty = document.querySelector('input[name="myRadios"]:checked').value;
 
     if(difficulty == 0) {
         mineCount = 10;
@@ -162,7 +162,6 @@ function setDifficulty() {
 }
 
 function startTimer() {
-    timeValue = 0;
     timer = window.setInterval(onTimerTick, 1000);
 }
 
@@ -176,17 +175,36 @@ function onTimerTick() {
 }
 
 function updateTimer() {
-    document.getElementById("timer").innerHTML = timeValue;
+    console.log("GOTTEMM");
+    tempTime = timeValue;
+    if (tempTime == -1) { tempTime = 0; }
+    digit = tempTime % 10;
+    document.getElementById("time_one").src = `images/time${digit}.gif`;
+    digit = Math.floor(tempTime / 10 % 10);
+    document.getElementById("time_ten").src = `images/time${digit}.gif`;
+    digit = Math.floor(tempTime / 100 % 10);
+    document.getElementById("time_hundred").src = `images/time${digit}.gif`;
+}
+
+function displayFlagCount() {
+    tempFlag = flagCount;
+    if (tempFlag == -1) { tempFlag = 0; }
+    digit = tempFlag % 10;
+    document.getElementById("mine_one").src = `images/time${digit}.gif`;
+    digit = Math.floor(tempFlag / 10 % 10);
+    document.getElementById("mine_ten").src = `images/time${digit}.gif`;
+    digit = Math.floor(tempFlag / 100 % 10);
+    document.getElementById("mine_hundred").src = `images/time${digit}.gif`;
 }
 
 //checks the type of tile that the user has selected
 function checkTile(elem) {
-     if (!elem.classList.contains("flag")) {
+    if (!elem.classList.contains("flag")) {
         if(coordinates[elem.x][elem.y].mine && !isFirstTurn)
             mineFound(elem)
         else
             displayTile(elem)
-     }    
+    }    
 }
 
 //add and remove flag on the tile that the user has selected
@@ -195,13 +213,13 @@ function updateFlag(elem) {
         if(elem.classList.contains("flag")) {
         elem.classList.remove("flag");
         elem.classList.add("hidden");
-        flagCountValue++;
+        flagCount++;
         } else {
             elem.classList.remove("hidden");
             elem.classList.add("flag");
-            flagCountValue--;
+            flagCount--;
         }
-        document.getElementById("flagCount").innerHTML = flagCountValue;
+        displayFlagCount();
     }
 }
 
@@ -333,18 +351,19 @@ function resetGame() {
     tiles = [];
     coordinates = null;
     mines = [];  
-    flagCountValue = mineCount;
+    flagCount = mineCount;
     isFirstTurn = true;
     updateNotification("");
     remainingTiles = columns*rows - mineCount;
     isGameOver = false;
+    stopTimer();
     timeValue = 0;
     updateTimer();
 }
 
 function winner() {
     isGameOver = true;
-    updateNotification(`Congratulations, You Win! Your score was ${timeValue}.`);
+    updateNotification(`Congratulations, You Win! <br> Your score was ${timeValue}!`);
     stopTimer();
     smileyWin();
 }
@@ -352,6 +371,6 @@ function winner() {
 function gameOver() {
     isGameOver = true;
     stopTimer();
-    updateNotification("You Lose! Try again");
+    updateNotification("You Lose! Try again!");
     smileyDead();
 }

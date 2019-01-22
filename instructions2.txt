@@ -1,6 +1,0 @@
-
-        - A middle click must reveal all hidden, unflagged, and adjacent tiles
-            This only works if: 
-                1. The tile clicked on is revealed.
-                2. The tile clicked on has a number on it. 
-                3. The number of adjacent flags matches the number on the tile clicked on.
